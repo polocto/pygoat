@@ -28,5 +28,29 @@ jobs:
       with:
         name: bandit-findings
         path: bandit.report.json
+
+  build-image:
+    name: Building Docker image and scan it
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4.2.2
+
+    - name: Docker Setup Docker
+      uses: docker/setup-docker-action@v4.3.0
+      with:
+        docker_version: '20.10.7'
+
+    - name: Docker build
+      run: docker build -f Dockerfile -t myapp:latest .
+
+
+    - name: Docker Scout
+      uses: docker/scout-action@v1.17.1
+      with:
+        command: quickview,cves
+        
   
-          
+    
+            
