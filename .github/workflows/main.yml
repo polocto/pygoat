@@ -57,8 +57,7 @@ jobs:
         command: quickview,cves
         dockerhub-user: polocto
         dockerhub-password: ${{ secrets.DOCKER_TOKEN }}
-        format: json
-        output: scout.report.json
+        sarif-file: scout-cves.report.sarif
         exit-code: true
         
     - name: Upload a Build Artifact
@@ -66,7 +65,7 @@ jobs:
       if: always()
       with:
         name: scout-findings
-        path: scout.report.json
+        path: scout-cves.report.sarif
   
     
             
